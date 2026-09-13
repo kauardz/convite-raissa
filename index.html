@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vem comigo pra Vila do Chaves?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tijolo: #a13d2c;
+    --madeira: #6b4226;
+    --papel: #f2e8d5;
+    --mostarda: #d9a441;
+    --azul-boina: #5f89a6;
+    --tinta: #2b1d14;
+    --sombra: rgba(20, 12, 6, 0.55);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Nunito', sans-serif;
+    color: var(--papel);
+  }
+
+  body{
+    min-height: 100vh;
+    background: #1a1108 url('chaves.png') center 20% / cover no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+  }
+
+  body::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,9,4,0.94) 0%, rgba(15,9,4,0.78) 32%, rgba(15,9,4,0.15) 60%, rgba(15,9,4,0) 78%);
+    pointer-events: none;
+  }
+
+  .cena{
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 560px;
+    padding: 28px 26px 40px;
+    text-align: center;
+  }
+
+  .selo{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--mostarda);
+    color: var(--tinta);
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 16px;
+    border-radius: 999px;
+    transform: rotate(-3deg);
+    box-shadow: 0 3px 0 rgba(0,0,0,0.25);
+    margin-bottom: 18px;
+  }
+
+  h1{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 7vw, 2.9rem);
+    line-height: 1.08;
+    margin: 0 0 14px;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.6);
+  }
+
+  h1 span{
+    color: var(--mostarda);
+  }
+
+  p.sub{
+    font-size: 1.05rem;
+    line-height: 1.5;
+    max-width: 440px;
+    margin: 0 auto 26px;
+    color: #f6efe0;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+
+  .ficha{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+  }
+
+  .ficha span{
+    background: rgba(15,9,4,0.55);
+    border: 1.5px solid rgba(242,232,213,0.35);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 0.2px;
+  }
+
+  .botoes{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  button{
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  button:focus-visible{
+    outline: 3px solid var(--azul-boina);
+    outline-offset: 3px;
+  }
+
+  .btn-sim{
+    background: var(--tijolo);
+    color: var(--papel);
+    box-shadow: 0 5px 0 #6e2417;
+  }
+
+  .btn-certeza{
+    background: var(--azul-boina);
+    color: #10202b;
+    box-shadow: 0 5px 0 #345066;
+  }
+
+  button:active{
+    transform: translateY(4px);
+    box-shadow: none;
+  }
+
+  .resposta{
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    min-height: 24px;
+    color: var(--mostarda);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    button{ transition: none; }
+  }
+
+  @media (min-width: 640px){
+    .cena{ padding-bottom: 60px; }
+  }
+</style>
+</head>
+<body>
+  <div class="cena">
+    <div class="selo">🏚️ Convite especial</div>
+    <h1>Vem comigo pra Vila do <span>Chaves</span>?</h1>
+    <p class="sub">Quinta-feira, 20h, tem exposição da Vila do Chaves — e eu só topo ir se for com você.</p>
+    <div class="ficha">
+      <span>📅 Quinta, 17/09</span>
+      <span>🕗 20h</span>
+      <span>📍 Exposição Vila do Chaves</span>
+    </div>
+    <div class="botoes">
+      <button class="btn-sim" onclick="confirmar('Sim')">Sim!</button>
+      <button class="btn-certeza" onclick="confirmar('Com certeza')">Com certeza 😄</button>
+    </div>
+    <div class="resposta" id="resposta"></div>
+  </div>
+
+<script>
+  function confirmar(escolha){
+    const numero = "5591998138942";
+    const mensagem = `Combinado! ${escolha} 🎉 Está marcada a saída comigo, Kauã Damascendo, quinta-feira (17/09) às 20h, na Exposição da Vila do Chaves. Te espero lá! 😄`;
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+    document.getElementById('resposta').textContent = "Abrindo o WhatsApp pra confirmar...";
+    window.open(url, "_blank");
+  }
+</script>
+</body>
+</html>
